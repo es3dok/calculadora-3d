@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Es tu calculadora 3D</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f6f6;
+      color: #2a2a2a;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    h2 {
+      background-color: #2f486e;
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 1.3em;
+    }
+    .section {
+      background-color: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    .tooltip {
+      cursor: pointer;
+      margin-left: 5px;
+      color: #506673;
+      position: relative;
+    }
+    .tooltip::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      background-color: #2f486e;
+      color: white;
+      font-size: 0.85em;
+      padding: 8px 12px;
+      border-radius: 5px;
+      top: 125%;
+      left: 0;
+      white-space: pre-wrap;
+      width: 300px;
+      z-index: 10;
+      display: none;
+    }
+    .tooltip:hover::after {
+      display: block;
+    }
+    .tooltip-title::after {
+      font-size: 0.75em;
+      width: 250px;
+    }
+    .tooltip-big::after {
+      font-size: 1em;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    select, input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    .info-note {
+      font-size: 0.9em;
+      color: #506673;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- ENCABEZADO CON LOGO, TÍTULO Y SUBTÍTULO -->
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="es-3d-logo-transparente.png" alt="Logo ES 3D" style="width: 100px; margin-bottom: 10px;" />
+    <h1 style="font-size: 2em; margin: 0;">CALCULADORA 3D</h1>
+    <p style="font-size: 1em; color: #506673; margin-top: 5px;">
+      Calculá el precio justo de tus piezas impresas en 3D.
+    </p>
+  </div>
+
+
+
+  <!-- Sección 1 -->
+  <div class="section">
+    <h2>1. Características de impresión <span class="tooltip tooltip-title" data-tooltip="ℹ️ Según FADDAC\n(Asociación Civil de Fabricantes Aditivos y Diseñadores Digitales del Norte)">ℹ️</span></h2>
+    <div class="form-group">
+      <label>Tipo de impresora <span class="tooltip" data-tooltip="Selecciona si usaste una impresora común o una rápida.">ℹ️</span></label>
+      <select>
+        <option>Impresora normal (Ej: Ender 3 NEO)</option>
+        <option>Impresora rápida (Ej: Ender 3 V3 KE)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Tipo de pieza <span class="tooltip" data-tooltip="Sencilla: llaveros, mates.
+Media: funkos, toppers.
+Compleja: repuestos, maquetas, engranajes.">ℹ️</span></label>
+      <select>
+        <option>Pieza sencilla</option>
+        <option>Pieza complejidad media</option>
+        <option>Pieza compleja</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Duración estimada de impresión (en horas) <span class="tooltip" data-tooltip="Tiempo total de impresión para esta pieza.">ℹ️</span></label>
+      <input type="number" placeholder="Ej: 3.5" />
+    </div>
+  </div>
+
+<!-- Sección 2 -->
+<div class="section">
+  <h2>2. Materiales e insumos <span class="tooltip" data-tooltip="Tipo de filamento, precio por kilo y peso de la pieza.">ℹ️</span></h2>
+  <div class="form-group">
+    <label>Tipo de filamento 
+      <span class="tooltip" data-tooltip="ℹ️ No cambia el precio automáticamente, pero sirve de referencia.">ℹ️</span>
+    </label>
+    <select>
+      <option>PLA</option>
+      <option>ABS</option>
+      <option>TPU</option>
+      <option>Otro</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Precio del filamento por kg ($)
+      <span class="tooltip" data-tooltip="ℹ️ Poné acá lo que pagás por kilo del filamento.">ℹ️</span>
+    </label>
+    <input type="number" placeholder="Ej: 2500" />
+  </div>
+  <div class="form-group">
+    <label>Peso de la pieza (en gramos)
+      <span class="tooltip" data-tooltip="ℹ️ El sistema calculará el costo en base a este peso y el valor por kg.">ℹ️</span>
+    </label>
+    <input type="number" placeholder="Ej: 75" />
+  </div>
+</div>
+
+
+  <!-- Sección 3 -->
+  <div class="section">
+    <h2>3. Consumo eléctrico <span class="tooltip" data-tooltip="Se calcula el costo energético en base a tu factura.">ℹ️</span></h2>
+    <div class="form-group">
+      <label>Total de kWh de tu factura <span class="tooltip" data-tooltip="Revisá tu factura eléctrica.">ℹ️</span></label>
+      <input type="number" placeholder="Ej: 270" />
+    </div>
+    <div class="form-group">
+      <label>Monto total de la factura ($)</label>
+      <input type="number" placeholder="Ej: 15000" />
+    </div>
+    <div class="form-group">
+      <label>Duración de impresión (en horas)</label>
+      <input type="number" placeholder="Ej: 3.5" />
+    </div>
+  </div>
+
+  <!-- Sección 4 -->
+  <div class="section">
+    <h2>4. Postprocesado y aditivos</h2>
+    <div class="form-group">
+      <label>Postprocesado: horas trabajadas <span class="tooltip" data-tooltip="Incluye lijado, pintura, armado, etc.">ℹ️</span></label>
+      <input type="number" placeholder="Ej: 1" />
+    </div>
+    <div class="form-group">
+      <label>Gastos adicionales (pintura, lija, etc.)</label>
+      <input type="number" placeholder="Ej: 500" />
+    </div>
+    <div class="form-group">
+      <label>Costo de aditivos externos <span class="tooltip" data-tooltip="Ej: argollitas, cadenas, LEDs, tornillos, etc.">ℹ️</span></label>
+      <input type="number" placeholder="Ej: 300" />
+    </div>
+  </div>
+
+  <!-- Sección 5 -->
+  <div class="section">
+    <h2>5. Diseño <span class="tooltip tooltip-title" data-tooltip="¿Modelaste el archivo vos o lo descargaste? Dependiendo de eso el costo puede cambiar.">ℹ️</span></h2>
+    <div class="form-group">
+      <label>¿Modelo descargado o propio?</label>
+      <input type="radio" name="modelo" id="descargado" /> Lo descargué
+      <input type="radio" name="modelo" id="propio" /> Lo modelé yo
+    </div>
+    <div id="descargado-fields" class="form-group" style="display: none">
+      <label>Precio del modelo descargado ($)</label>
+      <input type="number" placeholder="Ej: 500" />
+    </div>
+    <div id="propio-fields" style="display: none">
+      <div class="form-group">
+        <label>Horas de modelado</label>
+        <input type="number" placeholder="Ej: 2" />
+      </div>
+      <div class="form-group">
+        <label>Tarifa por hora de diseño ($)
+          <span class="tooltip" data-tooltip="ℹ️ Según tarifario.org/multimedia-3d-c23">ℹ️</span>
+        </label>
+        <input type="number" placeholder="Ej: 4000" />
+      </div>
+      <p class="info-note">Recuerda: Cliente A = empresas grandes, Cliente B = PyMEs, Cliente C = particulares o sin fines de lucro.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Servicio</th>
+            <th>Cliente A</th>
+            <th>Cliente B</th>
+            <th>Cliente C</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Modelado 3D Stand (alta)</td><td>$246.993</td><td>$190.538</td><td>$127.025</td></tr>
+          <tr><td>Modelado 3D Stand (baja)</td><td>$101.444</td><td>$76.744</td><td>$51.163</td></tr>
+          <tr><td>Modelado de logo</td><td>$136.728</td><td>$101.444</td><td>$67.041</td></tr>
+          <tr><td>Modelado personaje estándar</td><td>$608.662</td><td>$449.881</td><td>$299.921</td></tr>
+          <tr><td>Modelado plano 3D</td><td>$405.775</td><td>$299.921</td><td>$198.477</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const descargado = document.getElementById("descargado");
+    const propio = document.getElementById("propio");
+    const descargadoFields = document.getElementById("descargado-fields");
+    const propioFields = document.getElementById("propio-fields");
+
+    descargado.addEventListener("change", () => {
+      descargadoFields.style.display = "block";
+      propioFields.style.display = "none";
+    });
+
+    propio.addEventListener("change", () => {
+      descargadoFields.style.display = "none";
+      propioFields.style.display = "block";
+    });
+  </script>
+    
+  <!-- SECCIÓN 6 — Costos operativos -->
+  <div class="section">
+    <h2>6. Costos operativos <span class="tooltip tooltip-title" data-tooltip="Incluye costos fijos mensuales que se reparten entre tus trabajos.">ℹ️</span></h2>
+    <div class="form-group">
+      <label>Monotributo mensual ($)
+        <span class="tooltip" data-tooltip="Se prorratea por hora o por pieza.">ℹ️</span>
+      </label>
+      <input type="number" placeholder="Ej: 12000" />
+    </div>
+    <div class="form-group">
+      <label>Alquiler mensual ($)
+        <span class="tooltip" data-tooltip="También se prorratea por hora o por pieza.">ℹ️</span>
+      </label>
+      <input type="number" placeholder="Ej: 35000" />
+    </div>
+  </div>
+
+  <!-- SECCIÓN 7 — Resultado final -->
+   <div class="section">
+    <h2>7. Resultado final <span class="tooltip tooltip-title" data-tooltip="Este es el precio sugerido según todos los valores que ingresaste.">ℹ️</span></h2>
+
+    <div style="text-align: center; margin-top: 20px;">
+      <button onclick="calcularPrecio()" style="background-color: #2f486e; color: white; padding: 10px 20px; border: none; border-radius: 8px; font-size: 1em; cursor: pointer;">
+        Calcular
+      </button>
+    </div>
+
+    <div style="text-align: center; margin-top: 25px; font-size: 1.3em; font-weight: bold; color: #2a2a2a;">
+      Precio sugerido final (ARS): <span id="resultadoFinal">—</span>
+    </div>
+  </div>
+
+
+  <!-- SECCIÓN FINAL — Sobre la calculadora -->
+  <div class="section" style="background-color: #eeeeee; color: #2a2a2a; text-align: center;">
+
+    <h2 style="background-color: transparent; color: #2a2a2a; padding: 0; font-size: 1.2em;">Sobre la calculadora</h2>
+    <p style="font-size: 0.95em; line-height: 1.6;">
+      Esta herramienta fue desarrollada para brindar una estimación transparente y realista del costo de impresión 3D, teniendo en cuenta variables como materiales, diseño, energía y costos operativos.
+    </p>
+    <p style="font-size: 0.85em; color: #2f486e;">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula, augue non pulvinar interdum, elit felis ultrices lorem, vitae hendrerit enim lacus ut lorem.
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+<footer style="background-color: #e3cbbc; color: #2a2a2a; padding: 20px; text-align: center; border-radius: 10px; margin-top: 20px;">
+  <p style="margin: 0; font-weight: bold;">Calculadora 3D — 2025</p>
+  <p style="margin: 5px 0 0;">
+    <a href="https://www.instagram.com/es3dok/" target="_blank" rel="noopener noreferrer" style="color: #2a2a2a; text-decoration: none; margin: 0 10px;">Instagram</a> |
+    <a href="https://cults3d.com/en/users/es3dok/" target="_blank" rel="noopener noreferrer" style="color: #2a2a2a; text-decoration: none; margin: 0 10px;">Cults 3D</a> |
+    <a href="https://ar.pinterest.com/es3dok/" target="_blank" rel="noopener noreferrer" style="color: #2a2a2a; text-decoration: none; margin: 0 10px;">Pinterest</a>
+  </p>
+</footer>
+
+
+<script>
+function calcularPrecio() {
+  const preciosBase = {
+    normal: {
+      sencilla: 2167.27,
+      media: 3250.91,
+      compleja: 4334.55
+    },
+    rapida: {
+      sencilla: 2291.46,
+      media: 3437.18,
+      compleja: 4582.91
+    }
+  };
+
+  // Tipo de impresora y complejidad (usando select)
+  const tipoImpresoraIndex = document.querySelectorAll('select')[0].selectedIndex;
+  const tipoImpresora = tipoImpresoraIndex === 1 ? "rapida" : "normal";
+
+  const tipoPiezaIndex = document.querySelectorAll('select')[1].selectedIndex;
+  const complejidad = tipoPiezaIndex === 0 ? "sencilla" : tipoPiezaIndex === 1 ? "media" : "compleja";
+
+  // Inputs
+  const duracionImpresion = parseFloat(document.querySelectorAll('input[placeholder="Ej: 3.5"]')[0]?.value) || 0;
+  const precioFilamento = parseFloat(document.querySelector('input[placeholder="Ej: 2500"]')?.value) || 0;
+  const pesoPieza = parseFloat(document.querySelector('input[placeholder="Ej: 75"]')?.value) || 0;
+  const kWh = parseFloat(document.querySelector('input[placeholder="Ej: 5600"]')?.value) || 0;
+  const factura = parseFloat(document.querySelector('input[placeholder="Ej: 15000"]')?.value) || 0;
+  const duracionEnergia = parseFloat(document.querySelectorAll('input[placeholder="Ej: 3.5"]')[1]?.value || document.querySelectorAll('input[placeholder="Ej: 2"]')[0]?.value) || 0;
+  const horasPost = parseFloat(document.querySelector('input[placeholder="Ej: 1"]')?.value) || 0;
+  const gastoAdicional = parseFloat(document.querySelector('input[placeholder="Ej: 500"]')?.value) || 0;
+  const aditivos = parseFloat(document.querySelector('input[placeholder="Ej: 300"]')?.value) || 0;
+  const modeloDescargado = document.getElementById("descargado")?.checked;
+  const modeloPropio = document.getElementById("propio")?.checked;
+  const precioModeloDescargado = parseFloat(document.querySelector('#descargado-fields input')?.value) || 0;
+  const horasModelado = parseFloat(document.querySelector('#propio-fields input[placeholder="Ej: 2"]')?.value) || 0;
+  const tarifaModelado = parseFloat(document.querySelector('#propio-fields input[placeholder="Ej: 4000"]')?.value) || 0;
+  const monotributo = parseFloat(document.querySelector('input[placeholder="Ej: 12000"]')?.value) || 0;
+  const alquiler = parseFloat(document.querySelector('input[placeholder="Ej: 35000"]')?.value) || 0;
+
+  // Cálculos individuales
+  const costoMaterial = (pesoPieza / 1000) * precioFilamento;
+  const costoEnergiaPorHora = (kWh > 0) ? factura / kWh : 0;
+  const costoEnergia = duracionEnergia * costoEnergiaPorHora;
+  const costoPost = horasPost * 1500;
+  const costoDiseño = modeloDescargado ? precioModeloDescargado : (horasModelado * tarifaModelado);
+  const prorrateoFijo = ((monotributo + alquiler) / 30 / 8) * (duracionImpresion + horasPost);
+
+  // DEBUGGING: Mostramos cada uno
+  console.log("costoMaterial:", costoMaterial);
+  console.log("costoEnergia:", costoEnergia);
+  console.log("costoPost:", costoPost);
+  console.log("costoDiseño:", costoDiseño);
+  console.log("gastoAdicional:", gastoAdicional);
+  console.log("aditivos:", aditivos);
+  console.log("prorrateoFijo:", prorrateoFijo);
+
+  // Campos y total
+  const camposUsados = [
+    costoMaterial,
+    costoEnergia,
+    costoPost,
+    gastoAdicional,
+    aditivos,
+    costoDiseño,
+    prorrateoFijo
+  ];
+
+  const camposCompletados = camposUsados.filter(c => c > 0).length;
+  const totalManual = camposUsados.reduce((a, b) => a + b, 0);
+  const precioBase = preciosBase[tipoImpresora][complejidad];
+
+  const total = camposCompletados >= 2 ? totalManual : precioBase;
+
+  document.getElementById("resultadoFinal").textContent = "$" + total.toFixed(2);
+}
+</script>
+
+
+</body>
+</html>
